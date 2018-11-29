@@ -12,13 +12,27 @@ public class UserLogin {
     String UserId;
 
     @NotNull
-    @Size(min=5, max=20,message="{userName.size}")
+    @Size(min=5, max=20,message="测试在这种情况")
     String userName;
     @NotNull
     @Size(min=6, max=20,message="{passWord.size}")
     String password;
     int status;
     Timestamp lastLoginTime;
+
+    public UserLogin(){}
+
+    UserLogin(String userId,String userName, String password, int status, Timestamp lastLoginTime) {
+        UserId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.status = status;
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public UserLogin(String userName, String password) {
+       this(null,userName,password,1,null);
+    }
 
     public String getUserId() {
         return UserId;

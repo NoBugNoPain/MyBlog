@@ -11,5 +11,6 @@ ext.versions = [
         servletVersion : '4.0.1',
         jspVersion : '2.3.1',
         jstlVersion : '1.2',
-        validationVersion : '2.0.1.Final'
+        validationVersion : '2.0.1.Final',
+        hibernateValidatorVersion : '5.0.1.Final'
 ]
