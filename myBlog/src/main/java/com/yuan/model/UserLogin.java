@@ -9,16 +9,16 @@ import java.sql.Timestamp;
 @PropertySource("classpath:ValidationMessages.properties")
 
 public class UserLogin {
-    String UserId;
+    private String UserId;
 
     @NotNull
     @Size(min=5, max=20,message="测试在这种情况")
-    String userName;
+    private String userName;
     @NotNull
     @Size(min=6, max=20,message="{passWord.size}")
-    String password;
-    int status;
-    Timestamp lastLoginTime;
+    private String password;
+    private int status;
+    private Timestamp lastLoginTime;
 
     public UserLogin(){}
 
@@ -72,5 +72,16 @@ public class UserLogin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLogin{" +
+                "UserId='" + UserId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", lastLoginTime=" + lastLoginTime +
+                '}';
     }
 }

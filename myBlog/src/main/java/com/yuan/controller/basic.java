@@ -2,6 +2,9 @@ package com.yuan.controller;
 
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
+import com.yuan.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,7 +16,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
+@Slf4j
 public class basic {
+
+    @Autowired
+    UserService userService;
     @RequestMapping("/")
     public String Hello(UserLogin userLogin){
         System.out.println("Hello test!");
@@ -24,6 +31,9 @@ public class basic {
     public String loginI(@Valid UserLogin userLogin, Errors errors){
         if(errors.hasErrors())
             return "login";
+        if(userService.validUserLoginMessage(userLogin)) {
+            //log.error("成功");
+        }
         return "login";
     }
     @RequestMapping(value="userLogin", method=GET)

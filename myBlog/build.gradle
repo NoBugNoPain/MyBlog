@@ -55,5 +55,6 @@ dependencies {
     
     compile 'javax.validation:validation-api:' + versions.validationVersion
     compile 'org.hibernate:hibernate-validator:' + versions.hibernateValidatorVersion
+    compile 'org.projectlombok:lombok:' + versions.lombokVersion
     
 }
