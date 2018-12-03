@@ -7,10 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" language="java" %>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>登录界面</title>
+    <script type="text/javascript" src="\js\encrypt\md5.js"></script>
 </head>
 <body>
     <sf:form method="POST" commandName="userLogin">
@@ -21,7 +22,19 @@
         <sf:label path="password"
                   cssErrorClass="error">密码</sf:label>:
         <sf:password path="password"/><br/>
-        <input type="submit" value="login/user">
+        <input type="button" value="login/user" onclick="firstEncrypt()">
     </sf:form>
+
+
+
+
+    <script  language="javascript" type="text/javascript">
+        function firstEncrypt() {
+            var pw = document.getElementById("password").value;
+            document.getElementById("password").value = hex_md5(pw);
+            document.getElementById("userLogin").submit();
+        }
+    </script>
 </body>
 </html>
+

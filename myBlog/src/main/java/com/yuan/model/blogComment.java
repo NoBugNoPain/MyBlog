@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class blogComment {
     private int commentId;
-    private int blogId;
+    private long blogId;
     private String blogComment;
     private int commentStatus;
     private Timestamp buildTime;
@@ -18,11 +18,11 @@ public class blogComment {
         this.commentId = commentId;
     }
 
-    public int getBlogId() {
+    public long getBlogId() {
         return blogId;
     }
 
-    public void setBlogId(int blogId) {
+    public void setBlogId(long blogId) {
         this.blogId = blogId;
     }
 

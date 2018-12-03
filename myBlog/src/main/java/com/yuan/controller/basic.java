@@ -42,5 +42,23 @@ public class basic {
         return "login";
     }
 
+    @RequestMapping(value="userRegister",method = GET)
+    public String registerIn(Model model){
+        model.addAttribute(new UserLogin());
+        return "register";
+    }
 
+    @RequestMapping(value="userRegister",method = POST)
+    public String getRegisterUser(@Valid UserLogin userLogin,Errors errors){
+        if(errors.hasErrors())
+            return "register";
+        try{
+            userService.saveUserLoginMessage(userLogin);
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("注册失败，请再试一遍！");
+            return "register";
+        }
+        return "register";
+    }
 }

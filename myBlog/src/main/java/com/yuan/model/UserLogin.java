@@ -9,21 +9,21 @@ import java.sql.Timestamp;
 @PropertySource("classpath:ValidationMessages.properties")
 
 public class UserLogin {
-    private String UserId;
+    private long userId;
 
     @NotNull
-    @Size(min=5, max=20,message="测试在这种情况")
+    @Size(min=5, max=20,message="{userName.size}")
     private String userName;
     @NotNull
-    @Size(min=6, max=20,message="{passWord.size}")
+    @Size(min=16, max=64,message="{passWord.size}")
     private String password;
     private int status;
     private Timestamp lastLoginTime;
 
     public UserLogin(){}
 
-    UserLogin(String userId,String userName, String password, int status, Timestamp lastLoginTime) {
-        UserId = userId;
+    UserLogin(long userId,String userName, String password, int status, Timestamp lastLoginTime) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.status = status;
@@ -31,15 +31,15 @@ public class UserLogin {
     }
 
     public UserLogin(String userName, String password) {
-       this(null,userName,password,1,null);
+       this(0,userName,password,1,null);
     }
 
-    public String getUserId() {
-        return UserId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserId(String userId) {
-        UserId = userId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -77,7 +77,7 @@ public class UserLogin {
     @Override
     public String toString() {
         return "UserLogin{" +
-                "UserId='" + UserId + '\'' +
+                "UserId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
