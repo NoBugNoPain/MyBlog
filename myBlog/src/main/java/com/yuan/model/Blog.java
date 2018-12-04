@@ -8,8 +8,8 @@ public class Blog {
     long BlogId;
     String BlogName;     //博客标题
     String BlogContent;  //博客文章
-    List<String> comment;  //博客评论
-    int Times;           //博客阅读次数
+    List<BlogComment> comment;  //博客评论
+    int blogStatus;          //博客状态
     Timestamp buildTime;   //博客创建时间
 
     public long getBlogId() {
@@ -36,20 +36,12 @@ public class Blog {
         BlogContent = blogContent;
     }
 
-    public List<String> getComment() {
+    public List<BlogComment> getComment() {
         return comment;
     }
 
-    public void setComment(List<String> comment) {
+    public void setComment(List<BlogComment> comment) {
         this.comment = comment;
-    }
-
-    public int getTimes() {
-        return Times;
-    }
-
-    public void setTimes(int times) {
-        Times = times;
     }
 
     public Timestamp getBuildTime() {

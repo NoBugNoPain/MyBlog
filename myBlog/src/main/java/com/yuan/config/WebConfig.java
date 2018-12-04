@@ -1,5 +1,7 @@
 package com.yuan.config;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.alibaba.fastjson.support.spring.JSONPResponseBodyAdvice;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +31,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-
-
+    //处理静态资源，是使前端可以加载js和image文件夹下的静态资源
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
@@ -40,6 +41,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
         configurer.enable();
+    }
+
+
+    //使用fastjson来处理json
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        converters.add(0,converter);
+    }
+
+    @Bean
+    public JSONPResponseBodyAdvice jsonpResponseBodyAdvice(){
+        return new JSONPResponseBodyAdvice();
     }
 
 }

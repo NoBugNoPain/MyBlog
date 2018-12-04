@@ -23,5 +23,12 @@ public interface UserMapper {
     @Insert("insert into userLogin(user_id,user_name,password,status,last_login_time) values(#{userLogin.userId},#{userLogin.userName},#{userLogin.password},2,now())")
     void saveUserLoginMessage(@Param("userLogin") UserLogin userLogin);
 
+    /*测试一个
+    *@Insert中能否执行两个sql语句，结果是成功的可以执行多个sql语句，但是需要在前几个update语句中加入分号;而且好像需要在databaseurl后加入&allowMultiQueries=true
+    @Insert(value={"insert into userLogin(user_id,user_name,password,status,last_login_time) values(#{userLogin.userId},#{userLogin.userName},#{userLogin.password},2,now());",
+            "insert into userLogin(user_id,user_name,password,status,last_login_time) values(12614,#{userLogin.userName},#{userLogin.password},2,now())"
+    })
+    void saveUserLoginMessage(@Param("userLogin") UserLogin userLogin);*/
+
 
 }

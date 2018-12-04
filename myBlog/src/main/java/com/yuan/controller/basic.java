@@ -61,4 +61,10 @@ public class basic {
         }
         return "register";
     }
+
+    @RequestMapping(value="saveEditor",method = POST)
+    public void getSaveBlo(){
+        System.out.println("成功");
+        //log.error("成功");
+    }
 }

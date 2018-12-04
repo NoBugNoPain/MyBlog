@@ -3,7 +3,7 @@ package com.yuan.model;
 
 import java.sql.Timestamp;
 
-public class blogComment {
+public class BlogComment {
     private int commentId;
     private long blogId;
     private String blogComment;
