@@ -1,14 +1,22 @@
 package com.yuan.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Blog {
+    @JSONField(serialize = false)
     long BlogId;
+
     String BlogName;     //博客标题
+
     String BlogContent;  //博客文章
+
     List<BlogComment> comment;  //博客评论
+
+    @JSONField(serialize = false)
     int blogStatus;          //博客状态
     Timestamp buildTime;   //博客创建时间
 

@@ -4,6 +4,7 @@ import com.yuan.mapper.UserMapper;
 import com.yuan.model.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +19,7 @@ public class UserService {
     private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static LocalDate ldt = LocalDate.now();
 
+    @Transactional
     public boolean validUserLoginMessage(UserLogin userLogin){
         List<UserLogin> lUserLogin= userMapper.searchUserByNameAndPassword(userLogin);
         if(lUserLogin == null || lUserLogin.size()!=1)
@@ -25,6 +27,7 @@ public class UserService {
         else
         {
             for(UserLogin ul:lUserLogin){
+                userMapper.updateLoginTime(userLogin);
                 System.out.println(ul);
             }
             return true;
@@ -46,5 +49,6 @@ public class UserService {
         }
         userLogin.setUserId(Long.parseLong(userNo));
         userMapper.saveUserLoginMessage(userLogin);
+
     }
 }

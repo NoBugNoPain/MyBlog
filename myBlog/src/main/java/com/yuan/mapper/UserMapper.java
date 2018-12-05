@@ -10,6 +10,7 @@ import java.util.List;
 public interface UserMapper {
 
 
+    //@Update("update userLogin set last_login_time = now() where user_name = #{userLogin.userName}")
     @Select("select * from userLogin where user_name=#{userLogin.userName} and password = #{userLogin.password} and status <> 0")
     @Results(id="userMapper", value={
             @Result(property = "userId",column = "user_id"),
@@ -19,6 +20,9 @@ public interface UserMapper {
             @Result(property = "lastLoginTime",column = "last_login_time")
     })
     List<UserLogin> searchUserByNameAndPassword(@Param("userLogin") UserLogin userLogin);
+
+    @Update("update userLogin set last_login_time = now() where user_name = #{userLogin.userName}")
+    void updateLoginTime(@Param("userLogin") UserLogin userLogin);
 
     @Insert("insert into userLogin(user_id,user_name,password,status,last_login_time) values(#{userLogin.userId},#{userLogin.userName},#{userLogin.password},2,now())")
     void saveUserLoginMessage(@Param("userLogin") UserLogin userLogin);

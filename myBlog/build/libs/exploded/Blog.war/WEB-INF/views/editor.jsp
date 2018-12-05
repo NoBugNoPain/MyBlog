@@ -24,16 +24,16 @@
     document.getElementById('saveBlog').addEventListener('click',function(){
         alert($("#blogTitle").val());
         var data={
-            blogTitle:$("#blogTitle").val(),
-            content: editor.txt.html()
+            blogName:$("#blogTitle").val(),
+            blogContent: editor.txt.html()
         };
         alert(data);
         $.ajax({
             type:"post",
             url:"saveEditor",
-            data:{BlogData:JSON.stringify(data)},
-            datatype: "json",
-            contentType:"application/x-www-form-urlencoded",
+            data:JSON.stringify(data),
+            dataType: "json",
+            contentType:"application/json;charset=UTF-8",
             success:function(){                      //这部分判断json是否回复成功
                 alert("成功");
             },

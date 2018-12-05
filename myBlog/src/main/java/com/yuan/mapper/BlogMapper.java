@@ -25,7 +25,11 @@ public interface BlogMapper {
     @Select("select * from blogName bn,blogContent bc where bn.blog_name like concat('%'+#{keyword}+'%') and bn.status = 1 and bn.blog_id = bc.blog_id")
     List<Blog> selectBlogByNameKeyWord(@Param("keyword") String keyword);
 
+    @Insert("insert into blogName(blog_id,blog_name,blog_status,build_time) values(#{blog.blogId},#{blog.blogName},1,now())")
+    void InsertBlogName(@Param("blog")Blog blog);
 
+    @Insert("insert into blogContent(blog_id,blog_essay) values(#{blog.blogId},#{blog.blogContent})")
+    void InsertBLogContent(@Param("blog")Blog blog);
 
     @Update("update blogName set blog_name = #{blog.blogName} where blog_id = #{blog.blog_id} and blog_status = 1")
     void updateBlogName(@Param("blog")Blog blog);
