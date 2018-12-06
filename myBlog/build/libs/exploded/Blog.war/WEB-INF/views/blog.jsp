@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2018/11/29
@@ -9,6 +9,8 @@
 <html>
 <head>
     <title>Title</title>
+    <h1>${Blog.blogName}</h1>
+    <div>${Blog.blogContent}</div>
 </head>
 <body>
 

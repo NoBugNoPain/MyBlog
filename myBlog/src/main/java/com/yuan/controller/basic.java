@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.yuan.model.UserLogin;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -28,6 +26,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @Slf4j
+@SessionAttributes("loginUser")
 public class basic {
 
     @Autowired
@@ -37,12 +36,18 @@ public class basic {
     BlogService blogService;
 
     @RequestMapping("/")
-    public String Hello(UserLogin userLogin){
-        System.out.println("Hello test!");
-        return "editor";
+    public String Hello(Model model){
+        model.addAttribute("allBlogs",blogService.listAllBlogsService());
+        return "index";
     }
 
-    @RequestMapping(value="userLogin", method=POST)
+    @RequestMapping("blog/{blogId}")
+    public String openBlog(Model model, @PathVariable long blogId){
+        model.addAttribute("Blog",blogService.searchBlogService(blogId));
+        return "blog";
+    }
+
+    @RequestMapping(value="yuanBlog/userLogin", method=POST)
     public String loginI(@Valid UserLogin userLogin, Errors errors){
         if(errors.hasErrors())
             return "login";
@@ -51,19 +56,19 @@ public class basic {
         }
         return "login";
     }
-    @RequestMapping(value="userLogin", method=GET)
+    @RequestMapping(value="yuanBlog/userLogin", method=GET)
     public String loginIn(Model model){
-        model.addAttribute(new UserLogin());
+        model.addAttribute("loginUser",new UserLogin());
         return "login";
     }
 
-    @RequestMapping(value="userRegister",method = GET)
+    @RequestMapping(value="yuanBlog/userRegister",method = GET)
     public String registerIn(Model model){
-        model.addAttribute(new UserLogin());
+        model.addAttribute("loginUser",new UserLogin());
         return "register";
     }
 
-    @RequestMapping(value="userRegister",method = POST)
+    @RequestMapping(value="yuanBlog/userRegister",method = POST)
     public String getRegisterUser(@Valid UserLogin userLogin,Errors errors){
         if(errors.hasErrors())
             return "register";
@@ -77,18 +82,19 @@ public class basic {
         return "redirect:/homePage";
     }
 
-    @RequestMapping(value="saveEditor",method = POST)
+    @RequestMapping(value="yuanBlog/saveEditor",method = POST)
     @ResponseBody
-    public String getSaveBlo(@RequestBody Blog blog){
+    public String getSaveBlog(@RequestBody Blog blog){    //存储新创建的博客，或者存储修改后的博客
 
         Map<String,String> mp = new HashMap<>();
-        mp.put("result","success");
-        log.error(JSON.toJSONString(mp));
+        if(!blogService.createBlogService(blog)) {
+            mp.put("result", "fail");
+        }
+        else{
+            mp.put("result","success");
+        }
+        //log.error(JSON.toJSONString(mp));
         return JSON.toJSONString(mp);
     }
 
-    @RequestMapping(value="homePage",method=GET)
-    public void listBlogs(){
-
-    }
 }

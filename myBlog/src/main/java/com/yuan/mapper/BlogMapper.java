@@ -14,15 +14,15 @@ public interface BlogMapper {
             @Result(property = "blogStatus",column = "blog_status"),
             @Result(property = "buildTime",column = "build_time")
     })
-    @Select("select * from blogName bn,blogContent bc where bn.blog_id = bc.blog_id and bn.status = 1")
+    @Select("select * from blogName bn,blogContent bc where bn.blog_id = bc.blog_id and bn.blog_status = 1")
     List<Blog> selectAllBlogs();
 
     @ResultMap(value="blogMap")
-    @Select("select * from blogName bn,blogContent bc where bn.blog_id = bc.blog_id and bn.blog_id = #{blogId} and bn.status = 1")
+    @Select("select * from blogName bn,blogContent bc where bn.blog_id = bc.blog_id and bn.blog_id = #{blogId} and bn.blog_status = 1")
     Blog selectBlogById(@Param("blogId")long blogId);
 
     @ResultMap(value="blogMap")
-    @Select("select * from blogName bn,blogContent bc where bn.blog_name like concat('%'+#{keyword}+'%') and bn.status = 1 and bn.blog_id = bc.blog_id")
+    @Select("select * from blogName bn,blogContent bc where bn.blog_name like concat('%'+#{keyword}+'%') and bn.blog_status = 1 and bn.blog_id = bc.blog_id")
     List<Blog> selectBlogByNameKeyWord(@Param("keyword") String keyword);
 
     @Insert("insert into blogName(blog_id,blog_name,blog_status,build_time) values(#{blog.blogId},#{blog.blogName},1,now())")

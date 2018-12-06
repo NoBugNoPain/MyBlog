@@ -7,10 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -49,6 +46,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         converters.add(0,converter);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //添加新的拦截器，可以添加多个
+        InterceptorRegistration interceptorRegistration = registry.addInterceptor(new ValidLoginIntercepter());
+        interceptorRegistration.addPathPatterns("/yuanBlog/**");
+        interceptorRegistration.excludePathPatterns("/yuanBlog/userLogin");
+        super.addInterceptors(registry);
     }
 
     @Bean
