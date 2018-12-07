@@ -31,11 +31,11 @@ public interface BlogMapper {
     @Insert("insert into blogContent(blog_id,blog_essay) values(#{blog.blogId},#{blog.blogContent})")
     void InsertBLogContent(@Param("blog")Blog blog);
 
-    @Update("update blogName set blog_name = #{blog.blogName} where blog_id = #{blog.blog_id} and blog_status = 1")
+    @Update("update blogName set blog_name = #{blog.blogName} where blog_id = #{blog.blogId} and blog_status = 1")
     void updateBlogName(@Param("blog")Blog blog);
 
 
-    @Update("update blogContent set blog_essay = #{blog.blogContent} where blog_id = #{blog.blog_id} and blog_status = 1")
+    @Update("update blogContent set blog_essay = #{blog.blogContent} where blog_id = #{blog.blogId}")
     void updateBlogEssay(@Param("blog")Blog blog);
 
     @Update("update blogName set blog_status = 0 where blog_id = #{blogId}")

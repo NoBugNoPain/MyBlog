@@ -14,7 +14,7 @@
     <script type="text/javascript" src="\js\encrypt\md5.js"></script>
 </head>
 <body>
-    <sf:form method="POST" commandName="userLogin">
+    <sf:form method="POST" commandName="loginUser">
         <sf:errors path="*" element="div" cssClass="errors" />
         <sf:label path="userName"
                   cssErrorClass="error">用户名</sf:label>:
@@ -32,7 +32,7 @@
         function firstEncrypt() {
             var pw = document.getElementById("password").value;
             document.getElementById("password").value = hex_md5(pw);
-            document.getElementById("userLogin").submit();
+            document.getElementById("loginUser").submit();
         }
     </script>
 </body>

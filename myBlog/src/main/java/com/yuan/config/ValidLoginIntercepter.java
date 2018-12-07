@@ -18,7 +18,7 @@ public class ValidLoginIntercepter implements HandlerInterceptor{
             return false;
         }else if(user instanceof UserLogin){
             UserLogin userLogin = (UserLogin)user;
-            if(userLogin.getStatus()!=1 || userLogin.getStatus()!=2){     //成功登录的用户的status一定是从数据库中获得了1或者2
+            if(userLogin.getUserName()==null||userLogin.getPassword()==null){     //成功登录的用户的status一定是从数据库中获得了1或者2
                 response.sendRedirect("/yuanBlog/userLogin");
                 return false;
             }

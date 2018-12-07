@@ -1,10 +1,12 @@
 package com.yuan.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
+import com.yuan.mapper.BlogMapper;
 import com.yuan.model.Blog;
 import com.yuan.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @Slf4j
-@SessionAttributes("loginUser")
 public class basic {
 
     @Autowired
@@ -48,13 +49,16 @@ public class basic {
     }
 
     @RequestMapping(value="yuanBlog/userLogin", method=POST)
-    public String loginI(@Valid UserLogin userLogin, Errors errors){
+    public String loginI(@Valid UserLogin userLogin, Errors errors, HttpSession session){
         if(errors.hasErrors())
             return "login";
         if(userService.validUserLoginMessage(userLogin)) {
-            //log.error("成功");
+            session.setAttribute("loginUser",userLogin);
+            return "redirect:/yuanBlog/BlogManager";
         }
-        return "login";
+        else{
+            return "login";
+        }
     }
     @RequestMapping(value="yuanBlog/userLogin", method=GET)
     public String loginIn(Model model){
@@ -79,7 +83,7 @@ public class basic {
             //System.out.println("注册失败，请再试一遍！");
             return "register";
         }
-        return "redirect:/homePage";
+        return "redirect:/";
     }
 
     @RequestMapping(value="yuanBlog/saveEditor",method = POST)
@@ -95,6 +99,24 @@ public class basic {
         }
         //log.error(JSON.toJSONString(mp));
         return JSON.toJSONString(mp);
+    }
+
+    @RequestMapping(value="yuanBlog/BlogManager", method=GET)
+    public String blogManager(Model model){
+        model.addAttribute("allBlogs",blogService.listAllBlogsService());
+        return "blogsManager";
+    }
+
+
+    @RequestMapping(value="delete/{blogId}",method = POST)
+    public void deleteBlog(@PathVariable long blogId){
+        log.error("成功删除"+blogId);
+    }
+
+    @RequestMapping(value="editor/{blogId}",method = GET)
+    public String editorOldBlog(Model model,@PathVariable long blogId){
+        model.addAttribute("editorBlog",blogService.searchBlogService(blogId));
+        return "editor";
     }
 
 }
