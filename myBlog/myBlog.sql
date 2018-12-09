@@ -33,7 +33,7 @@ create table blogComment(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-//测试数据
+
 
 insert into userLogin(user_id,user_name,password,status,last_login_time) values(1,'yuanpeng','123456',1,now());
 

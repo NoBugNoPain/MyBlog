@@ -54,6 +54,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         InterceptorRegistration interceptorRegistration = registry.addInterceptor(new ValidLoginIntercepter());
         interceptorRegistration.addPathPatterns("/yuanBlog/**");
         interceptorRegistration.excludePathPatterns("/yuanBlog/userLogin");
+        interceptorRegistration.excludePathPatterns("/yuanBlog/userRegister");
         super.addInterceptors(registry);
     }
 

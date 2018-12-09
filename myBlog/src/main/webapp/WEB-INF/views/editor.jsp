@@ -37,6 +37,8 @@
         editor.txt.html('<%=((Blog)request.getAttribute("editorBlog")).getBlogContent()%>')
     }
 
+    editor.txt.text()
+
 
     //将编辑完的博客以json的格式发送到后台
     document.getElementById('saveBlog').addEventListener('click',function(){

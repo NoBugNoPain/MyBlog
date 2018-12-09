@@ -10,7 +10,7 @@ public interface BlogMapper {
             @Result(property = "blogId",column = "blog_id"),
             @Result(property = "blogName",column = "blog_name"),
             @Result(property = "blogContent",column = "blog_essay"),
-            @Result(property = "comment",column = "blogId",many=@Many(select="com.yuan.mapper.CommentMapper.getBlogCommentByBlogId")),
+            @Result(property = "comment",column = "blog_id",many=@Many(select="com.yuan.mapper.CommentMapper.getBlogCommentByBlogId")),
             @Result(property = "blogStatus",column = "blog_status"),
             @Result(property = "buildTime",column = "build_time")
     })

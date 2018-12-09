@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: admin
@@ -11,6 +12,10 @@
     <title>Title</title>
     <h1>${Blog.blogName}</h1>
     <div>${Blog.blogContent}</div>
+    <c:set value="${Blog.comment}" var="commend" />
+    <c:forEach items="${commend}" var="eachComment">
+        <div id="comment${eachComment.blogId}">${eachComment.blogComment}</div>
+    </c:forEach>
 </head>
 <body>
 

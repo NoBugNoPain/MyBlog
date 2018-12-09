@@ -42,7 +42,8 @@ public class BlogService {
 
     public Blog searchBlogService(long blogId){
         try{
-            return blogMapper.selectBlogById(blogId);
+            Blog blog = blogMapper.selectBlogById(blogId);
+            return blog;
         }
         catch(Exception e){
             e.printStackTrace();

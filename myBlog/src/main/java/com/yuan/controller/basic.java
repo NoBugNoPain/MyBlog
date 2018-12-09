@@ -68,7 +68,7 @@ public class basic {
 
     @RequestMapping(value="yuanBlog/userRegister",method = GET)
     public String registerIn(Model model){
-        model.addAttribute("loginUser",new UserLogin());
+        model.addAttribute(new UserLogin());
         return "register";
     }
 
@@ -120,3 +120,4 @@ public class basic {
     }
 
 }
+

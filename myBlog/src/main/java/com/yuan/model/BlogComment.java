@@ -6,10 +6,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.sql.Timestamp;
 
 public class BlogComment {
-    private int commentId;
     private long blogId;
+    private int commentId;
     private String blogComment;
-    @JSONField(serialize = false)
     private int commentStatus;
     private Timestamp buildTime;
 
