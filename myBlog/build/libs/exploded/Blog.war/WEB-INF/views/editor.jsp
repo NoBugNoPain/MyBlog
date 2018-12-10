@@ -44,8 +44,9 @@
         var data={
             blogId:<%=blogId%>,
             blogName:$("#blogTitle").val(),
-            blogContent: editor.txt.html()
+            blogContent: editor.txt.html(),
         };
+        editor.txt.text()
         //alert(data);
         $.ajax({
             type:"post",
