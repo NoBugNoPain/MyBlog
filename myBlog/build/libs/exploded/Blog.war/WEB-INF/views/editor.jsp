@@ -29,13 +29,21 @@
 <script>
     var E = window.wangEditor
     var editor = new E('#editor')
+
+    editor.customConfig.uploadImgServer = '/upload' //图片上传相关
+    editor.customConfig.linkImgCallback = function (url) {
+        console.log(url) // url 即插入图片的地址
+    }
+
     editor.create()
+    <%if(request.getAttribute("editorBlog")!=null){%>
     var jsBlogId = '<%=blogId%>';
     if(jsBlogId != 0){
         document.getElementById("blogTitle").value = "<%=((Blog)request.getAttribute("editorBlog")).getBlogName()%>";
         editor.txt.clear();
         editor.txt.html('<%=((Blog)request.getAttribute("editorBlog")).getBlogContent()%>')
     }
+    <%}%>
 
 
     //将编辑完的博客以json的格式发送到后台

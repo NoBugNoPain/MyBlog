@@ -11,6 +11,7 @@ import com.yuan.model.Blog;
 import com.yuan.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
 import com.yuan.service.UserService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,14 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import com.yuan.model.UserLogin;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -57,7 +63,7 @@ public class basic {
             return "redirect:/yuanBlog/BlogManager";
         }
         else{
-            return "login";
+            return "redirect:/yuanBlog/u    serLogin";
         }
     }
     @RequestMapping(value="yuanBlog/userLogin", method=GET)
@@ -110,13 +116,43 @@ public class basic {
 
     @RequestMapping(value="delete/{blogId}",method = POST)
     public void deleteBlog(@PathVariable long blogId){
-        log.error("成功删除"+blogId);
+            log.error("成功删除"+blogId);
     }
 
-    @RequestMapping(value="editor/{blogId}",method = GET)
+    @RequestMapping(value="yuanBlog/editor/{blogId}",method = GET)
     public String editorOldBlog(Model model,@PathVariable long blogId){
         model.addAttribute("editorBlog",blogService.searchBlogService(blogId));
         return "editor";
+    }
+
+    @RequestMapping(value="yuanBlog/editor",method = GET)
+    public String editorNewBlog(){
+        return "editor";
+    }
+
+    @RequestMapping(value="upload",method = POST)
+    @ResponseBody
+    public String saveUploadImage(@RequestParam("multiple") MultipartFile[] multiple){
+        List<String> picturesPosition = new LinkedList<String>();
+        Map<String,String> result = new HashMap<>();
+        if(multiple!=null&&multiple.length>0){
+            for(int i = 0;i < multiple.length;i++){
+                MultipartFile multipartFile = multiple[i];
+                if(multipartFile!=null){
+                    log.error(multipartFile.getContentType());
+                    String filePath = FilenameUtils.concat("/upload/",multipartFile.getOriginalFilename());
+                    try{
+                        multipartFile.transferTo(new File(filePath));
+                        picturesPosition.add(filePath);
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        result.put("errno","0");
+        result.put("data",JSON.toJSONString(picturesPosition));
+        return JSON.toJSONString(result);
     }
 
 }

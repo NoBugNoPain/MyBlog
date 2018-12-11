@@ -56,5 +56,9 @@ dependencies {
     compile 'javax.validation:validation-api:' + versions.validationVersion
     compile 'org.hibernate:hibernate-validator:' + versions.hibernateValidatorVersion
     compile 'org.projectlombok:lombok:' + versions.lombokVersion
+
+    /*图片上传相关*/
+    compile 'commons-io:commons-io:' + versions.commonsIoVersion
+    compile 'commons-fileupload:commons-fileupload:' + versions.commonsFileUpLoadVersion
     
 }

@@ -17,7 +17,7 @@
         <div id="${blog.blogId}div">
             ${blog.blogName}
             &nbsp&nbsp<button id="${blog.blogId}" onclick="return clickDeleteButton(this.id)">删除</button>
-            &nbsp&nbsp<button id="${blog.blogId}" onclick="window.location.href='/editor/${blog.blogId}'";>编辑</button>
+            &nbsp&nbsp<button id="${blog.blogId}" onclick="window.location.href='/yuanBlog/editor/${blog.blogId}'";>编辑</button>
         </div>
     </c:forEach>
 

@@ -23,7 +23,7 @@
     </div>
     <aside id="sideBar">
       <div id="headImage">
-        <a href="#"><img src="/image/headImage.gif" alt="有趣"/></a>
+        <a href="/yuanBlog/BlogManager"><img src="/image/headImage.gif" alt="有趣"/></a>
       </div>
       <h3 style="text-align:center;">嗨呀！是真滴抽象</h3>
     </aside>
