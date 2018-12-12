@@ -5,10 +5,12 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
 import com.yuan.mapper.BlogMapper;
 import com.yuan.model.Blog;
 import com.yuan.service.BlogService;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import lombok.extern.slf4j.Slf4j;
 import com.yuan.service.UserService;
 import org.apache.commons.io.FilenameUtils;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 
 import com.yuan.model.UserLogin;
 import org.springframework.web.multipart.MultipartFile;
@@ -132,27 +135,31 @@ public class basic {
 
     @RequestMapping(value="upload",method = POST)
     @ResponseBody
-    public String saveUploadImage(@RequestParam("multiple") MultipartFile[] multiple){
-        List<String> picturesPosition = new LinkedList<String>();
-        Map<String,String> result = new HashMap<>();
+    public String saveUploadImage(@RequestParam("pictures") MultipartFile[] multiple,HttpServletRequest request){
+        JSONObject jsonObject = new JSONObject();
+        List<String> picturePosi = new LinkedList<>();
         if(multiple!=null&&multiple.length>0){
             for(int i = 0;i < multiple.length;i++){
                 MultipartFile multipartFile = multiple[i];
                 if(multipartFile!=null){
                     log.error(multipartFile.getContentType());
-                    String filePath = FilenameUtils.concat("/upload/",multipartFile.getOriginalFilename());
+                    String basepath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/");
+                    File file = new File(basepath);
+                    if(!file.exists())   //如果路径不存在则创建路径
+                        file.mkdirs();
+                    String filePath = FilenameUtils.concat(basepath,multipartFile.getOriginalFilename());
                     try{
                         multipartFile.transferTo(new File(filePath));
-                        picturesPosition.add(filePath);
+                        picturePosi.add("/upload/"+multipartFile.getOriginalFilename());
                     }catch(IOException e){
                         e.printStackTrace();
                     }
                 }
             }
         }
-        result.put("errno","0");
-        result.put("data",JSON.toJSONString(picturesPosition));
-        return JSON.toJSONString(result);
+        jsonObject.put("errno","0");
+        jsonObject.put("data",picturePosi);
+        return JSONObject.toJSONString(jsonObject);
     }
 
 }

@@ -142,7 +142,7 @@ Image.prototype = {
                         <i class="w-e-icon-upload2"></i>
                     </div>
                     <div style="display:none;">
-                        <input id="${upFileId}" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>
+                        <input id="${upFileId}" type="file" multiple="multiple" name="pictures" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>
                     </div>
                 </div>`,
                 events: [

@@ -2751,7 +2751,7 @@ Image.prototype = {
         // tabs 的配置
         var tabsConfig = [{
             title: '上传图片',
-            tpl: '<div class="w-e-up-img-container">\n                    <div id="' + upTriggerId + '" class="w-e-up-btn">\n                        <i class="w-e-icon-upload2"></i>\n                    </div>\n                    <div style="display:none;">\n                        <input id="' + upFileId + '" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>\n                    </div>\n                </div>',
+            tpl: '<div class="w-e-up-img-container">\n                    <div id="' + upTriggerId + '" class="w-e-up-btn">\n                        <i class="w-e-icon-upload2"></i>\n                    </div>\n                    <div style="display:none;">\n                        <input id="' + upFileId + '" type="file" multiple="multiple" name="pictures" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>\n                    </div>\n                </div>',
             events: [{
                 // 触发选择图片
                 selector: '#' + upTriggerId,
@@ -4164,7 +4164,8 @@ UploadImg.prototype = {
         // 添加图片数据
         var formdata = new FormData();
         arrForEach(resultFiles, function (file) {
-            var name = uploadFileName || file.name;
+            //var name = uploadFileName || file.name;
+            var name = "pictures";
             formdata.append(name, file);
         });
 
@@ -4242,13 +4243,14 @@ UploadImg.prototype = {
                     if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) !== 'object') {
                         try {
                             result = JSON.parse(result);
+                            result = JSON.parse(result);
                         } catch (ex) {
                             // hook - fail
                             if (hooks.fail && typeof hooks.fail === 'function') {
                                 hooks.fail(xhr, editor, result);
                             }
 
-                            _this3._alert('上传图片失败', '上传图片返回结果错误，返回结果是: ' + result);
+                            _this3._alert('上传图片失败1', '上传图片返回结果错误，返回结果是: ' + result);
                             return;
                         }
                     }
@@ -4259,7 +4261,7 @@ UploadImg.prototype = {
                         }
 
                         // 数据错误
-                        _this3._alert('上传图片失败', '上传图片返回结果错误，返回结果 errno=' + result.errno);
+                        _this3._alert('上传图片失败2', '上传图片返回结果错误，返回结果 errno=' + result.errno);
                     } else {
                         if (hooks.customInsert && typeof hooks.customInsert === 'function') {
                             // 使用者自定义插入方法

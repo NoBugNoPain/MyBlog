@@ -241,7 +241,7 @@ UploadImg.prototype = {
                                 hooks.fail(xhr, editor, result)
                             }
 
-                            this._alert('上传图片失败', '上传图片返回结果错误，返回结果是: ' + result)
+                            this._alert('上传图片失败3', '上传图片返回结果错误，返回结果是: ' + result)
                             return
                         }
                     }
@@ -252,7 +252,7 @@ UploadImg.prototype = {
                         }
 
                         // 数据错误
-                        this._alert('上传图片失败', '上传图片返回结果错误，返回结果 errno=' + result.errno)
+                        this._alert('上传图片失败4', '上传图片返回结果错误，返回结果 errno=' + result.errno)
                     } else {
                         if (hooks.customInsert && typeof hooks.customInsert === 'function') {
                             // 使用者自定义插入方法
