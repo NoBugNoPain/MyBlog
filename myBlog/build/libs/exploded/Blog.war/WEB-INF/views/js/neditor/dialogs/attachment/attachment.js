@@ -577,7 +577,7 @@
                 link = fileSrc;
                 alert(typeof link);
                 list.push({
-                    title: data.url || link.substr(link.lastIndexOf('/') + 1),
+                    title: data.original || link.substr(link.lastIndexOf('/') + 1),
                     url: prefix + link
                 });
             }

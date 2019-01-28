@@ -85,4 +85,15 @@ public class BlogService {
         }
         return true;
     }
+
+    public boolean DeleteBlogService(long id){
+        try{
+            blogMapper.deleteBlogById(id);
+        }catch(Exception e){
+            e.printStackTrace();
+            log.error("删除博客失败");
+            return false;
+        }
+        return true;
+    }
 }

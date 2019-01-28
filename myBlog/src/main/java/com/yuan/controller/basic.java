@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
-import com.yuan.mapper.BlogMapper;
 import com.yuan.model.Blog;
 import com.yuan.service.BlogService;
 import jdk.nashorn.internal.ir.RuntimeNode;
@@ -19,14 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
 
 import com.yuan.model.UserLogin;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,7 +63,7 @@ public class basic {
             return "redirect:/yuanBlog/BlogManager";
         }
         else{
-            return "redirect:/yuanBlog/u    serLogin";
+            return "redirect:/yuanBlog/userLogin";
         }
     }
     @RequestMapping(value="yuanBlog/userLogin", method=GET)
@@ -95,11 +92,11 @@ public class basic {
         return "redirect:/";
     }
 
-    @RequestMapping(value="yuanBlog/saveEditor",method = POST)
+    @RequestMapping(value="saveEditor",method = POST)
     @ResponseBody
-    public String getSaveBlog(@RequestBody Blog blog){    //存储新创建的博客，或者存储修改后的博客
+    public JSONObject getSaveBlog(@RequestBody Blog blog){    //存储新创建的博客，或者存储修改后的博客
 
-        Map<String,String> mp = new HashMap<>();
+        JSONObject mp = new JSONObject();
         if(!blogService.createBlogService(blog)) {
             mp.put("result", "fail");
         }
@@ -107,7 +104,7 @@ public class basic {
             mp.put("result","success");
         }
         //log.error(JSON.toJSONString(mp));
-        return JSON.toJSONString(mp);
+        return mp;
     }
 
     @RequestMapping(value="yuanBlog/BlogManager", method=GET)
@@ -119,23 +116,24 @@ public class basic {
 
     @RequestMapping(value="delete/{blogId}",method = POST)
     public void deleteBlog(@PathVariable long blogId){
-            log.error("成功删除"+blogId);
+        if(blogService.DeleteBlogService(blogId))
+            log.error("删除成功");
     }
 
     @RequestMapping(value="yuanBlog/editor/{blogId}",method = GET)
     public String editorOldBlog(Model model,@PathVariable long blogId){
         model.addAttribute("editorBlog",blogService.searchBlogService(blogId));
-        return "editor";
+        return "neditor";
     }
 
     @RequestMapping(value="yuanBlog/editor",method = GET)
     public String editorNewBlog(){
-        return "editor";
+        return "neditor";
     }
 
     @RequestMapping(value="upload",method = POST)
     @ResponseBody
-    public String saveUploadImage(@RequestParam("pictures") MultipartFile[] multiple,HttpServletRequest request){
+    public JSONObject saveUploadImage(@RequestParam("file") MultipartFile[] multiple,HttpServletRequest request){
         JSONObject jsonObject = new JSONObject();
         List<String> picturePosi = new LinkedList<>();
         if(multiple!=null&&multiple.length>0){
@@ -143,7 +141,7 @@ public class basic {
                 MultipartFile multipartFile = multiple[i];
                 if(multipartFile!=null){
                     log.error(multipartFile.getContentType());
-                    String basepath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/");
+                    String basepath = ("/home/upload/image/");
                     File file = new File(basepath);
                     if(!file.exists())   //如果路径不存在则创建路径
                         file.mkdirs();
@@ -157,9 +155,9 @@ public class basic {
                 }
             }
         }
-        jsonObject.put("errno","0");
-        jsonObject.put("data",picturePosi);
-        return JSONObject.toJSONString(jsonObject);
+        jsonObject.put("code","200");
+        jsonObject.put("url",picturePosi);
+        return jsonObject;
     }
 
 }

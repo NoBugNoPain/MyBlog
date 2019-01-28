@@ -4243,7 +4243,7 @@ UploadImg.prototype = {
                     if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) !== 'object') {
                         try {
                             result = JSON.parse(result);
-                            result = JSON.parse(result);
+                            //result = JSON.parse(result);
                         } catch (ex) {
                             // hook - fail
                             if (hooks.fail && typeof hooks.fail === 'function') {
@@ -4401,7 +4401,7 @@ Editor.prototype = {
 
             // 自行创建的，需要配置默认的样式
             $toolbarElem.css('background-color', '#f1f1f1').css('border', '1px solid #ccc');
-            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', '300px');
+            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', '600px');
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
             $toolbarElem = $toolbarSelector;

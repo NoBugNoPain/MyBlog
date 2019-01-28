@@ -48,9 +48,13 @@
       var blogId = "<%=((Blog)blog).getBlogId()%>";
       var blogContent = '<%=((Blog)blog).getBlogContent()%>';
       //alert(blogContent.replace(/<.*?>/g,""));
-      document.getElementById(blogId).innerText = blogContent.replace(/<.*?>/g, function () {
-          return '';
-      });
+          var blogtext  = blogContent.replace(/<.*?>/g, function () {
+              return '';
+          });
+          if(blogtext.length > 200){
+              blogtext = blogtext.substring(0,201);
+          }
+      document.getElementById(blogId).innerText = blogtext;
       <%
 
               }

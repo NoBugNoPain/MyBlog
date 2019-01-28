@@ -19,7 +19,12 @@ war{
     archiveName 'Blog.war'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 dependencies {
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -49,10 +54,10 @@ dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:' + versions.servletVersion
     providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:' + versions.jspVersion
     compile 'javax.servlet:jstl:' + versions.jstlVersion
-    
+
     /*json相关*/
     compile 'com.alibaba:fastjson:' + versions.fastjsonVersion
-    
+
     compile 'javax.validation:validation-api:' + versions.validationVersion
     compile 'org.hibernate:hibernate-validator:' + versions.hibernateValidatorVersion
     compile 'org.projectlombok:lombok:' + versions.lombokVersion
@@ -60,5 +65,5 @@ dependencies {
     /*图片上传相关*/
     compile 'commons-io:commons-io:' + versions.commonsIoVersion
     compile 'commons-fileupload:commons-fileupload:' + versions.commonsFileUpLoadVersion
-    
+
 }

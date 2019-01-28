@@ -58,7 +58,7 @@
         //alert(data);
         $.ajax({
             type:"post",
-            url:"/yuanBlog/saveEditor",
+            url:"/saveEditor",
             data:JSON.stringify(data),
             dataType: "json",
             contentType:"application/json;charset=UTF-8",

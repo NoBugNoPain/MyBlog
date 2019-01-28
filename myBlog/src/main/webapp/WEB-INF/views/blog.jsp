@@ -55,7 +55,7 @@
     editor.create();
     function increaseComment(){
         if(editor.txt.text()==""||editor.txt.text().length>150){
-            alert("请输入评论再提交,或评论字数超过150字");
+            alert("请输入评论再提交,或评论字数不允许超过150字");
         }
         else{
             var editorDiv = document.getElementById("divLine");
